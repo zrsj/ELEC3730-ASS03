@@ -41,6 +41,26 @@ initialise_monitor_handles (void); // STEPIEN: To allow printing to console
 
 #include "LCDTouch.h"
 
+struct strButton{
+  uint16_t x;
+  uint16_t y;
+  uint16_t width;
+  uint16_t height;
+};
+
+typedef enum{
+  nullNum = -1,
+  up = 0,
+  down = 1,
+  view = 2,
+  delete = 3,
+  live = 4
+} tenButtons;
+#define ENUM_VALUES 5
+
+struct strButton arstrButtons[ENUM_VALUES];
+
+
 // Library functions
 
 extern void Init_Camera(void);
