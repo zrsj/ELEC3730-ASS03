@@ -1,7 +1,7 @@
 [PreviousGenFiles]
-HeaderPath=C:/Users/benja/Documents/year2/sem1/elec3730/ELEC3730-2020s1-Ass-03-Template-v03/Ass-03/Inc
+HeaderPath=C:/Users/pstepien/ELEC3730-2020s1-Workspace/Ass-03/Inc
 HeaderFiles=gpio.h;dcmi.h;dma.h;fsmc.h;tim.h;stm32f4xx_it.h;stm32f4xx_hal_conf.h;main.h;i2c.h;FreeRTOSConfig.h;sdio.h;ffconf.h;bsp_driver_sd.h;sd_diskio.h;fatfs.h;fatfs_platform.h;spi.h;
-SourcePath=C:/Users/benja/Documents/year2/sem1/elec3730/ELEC3730-2020s1-Ass-03-Template-v03/Ass-03/Src
+SourcePath=C:/Users/pstepien/ELEC3730-2020s1-Workspace/Ass-03/Src
 SourceFiles=gpio.c;dcmi.c;dma.c;fsmc.c;tim.c;stm32f4xx_it.c;stm32f4xx_hal_msp.c;main.c;i2c.c;freertos.c;stm32f4xx_hal_timebase_tim.c;sdio.c;bsp_driver_sd.c;sd_diskio.c;fatfs.c;fatfs_platform.c;spi.c;
 
 [PreviousLibFiles]

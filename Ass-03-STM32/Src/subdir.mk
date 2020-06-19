@@ -11,9 +11,6 @@ C_SRCS += \
 ../Src/Ass-03-SDTask.c \
 ../Src/Ass-03-TPTask.c \
 ../Src/Ass-03-TimeTask.c \
-../Src/LCDTouch-Lib.c \
-../Src/LCDTouch.c \
-../Src/LCDTouchProcess.c \
 ../Src/bsp_driver_sd.c \
 ../Src/dcmi.c \
 ../Src/dma.c \
@@ -41,9 +38,6 @@ OBJS += \
 ./Src/Ass-03-SDTask.o \
 ./Src/Ass-03-TPTask.o \
 ./Src/Ass-03-TimeTask.o \
-./Src/LCDTouch-Lib.o \
-./Src/LCDTouch.o \
-./Src/LCDTouchProcess.o \
 ./Src/bsp_driver_sd.o \
 ./Src/dcmi.o \
 ./Src/dma.o \
@@ -71,9 +65,6 @@ C_DEPS += \
 ./Src/Ass-03-SDTask.d \
 ./Src/Ass-03-TPTask.d \
 ./Src/Ass-03-TimeTask.d \
-./Src/LCDTouch-Lib.d \
-./Src/LCDTouch.d \
-./Src/LCDTouchProcess.d \
 ./Src/bsp_driver_sd.d \
 ./Src/dcmi.d \
 ./Src/dma.d \

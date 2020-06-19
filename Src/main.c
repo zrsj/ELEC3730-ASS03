@@ -31,7 +31,6 @@
 #include "gpio.h"
 #include "fsmc.h"
 
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "Ass-03.h"
@@ -143,6 +142,16 @@ int main(void)
   // disabling the DCMI interface and setting up the SD card. Need to also
   // put back control to DCMI before releasing MUTEX. Need to ensure that
   // DMA transactions have finished first.
+
+  // Initialise the LCD device
+
+  BSP_LCD_Init ();
+  BSP_LCD_Clear (LCD_COLOR_WHITE);
+  BSP_LCD_DisplayOn ();
+
+  // Initialise the touch panel interface
+
+  BSP_TP_Init ();
 
   /* USER CODE END 2 */
 

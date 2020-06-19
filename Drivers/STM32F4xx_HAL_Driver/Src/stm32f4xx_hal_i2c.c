@@ -6607,6 +6607,8 @@ static HAL_StatusTypeDef I2C_RequestMemoryRead(I2C_HandleTypeDef *hi2c, uint16_t
     return HAL_ERROR;
   }
 
+  // STEPIEN
+  hi2c->Instance->CR1 |= I2C_CR1_STOP;
   /* Generate Restart */
   SET_BIT(hi2c->Instance->CR1, I2C_CR1_START);
 

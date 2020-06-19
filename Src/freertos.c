@@ -57,6 +57,7 @@ osThreadId SDTaskHandle;
 osThreadId TimeTaskHandle;
 osThreadId TPTaskHandle;
 osMutexId SDIODCMIMutexHandle;
+osMutexId LCDMutexHandle;
 osSemaphoreId DCMILineCompleteHandle;
 
 /* Private function prototypes -----------------------------------------------*/
@@ -119,6 +120,10 @@ void MX_FREERTOS_Init(void) {
   osMutexDef(SDIODCMIMutex);
   SDIODCMIMutexHandle = osMutexCreate(osMutex(SDIODCMIMutex));
 
+  /* definition and creation of LCDMutex */
+  osMutexDef(LCDMutex);
+  LCDMutexHandle = osMutexCreate(osMutex(LCDMutex));
+
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
@@ -138,7 +143,12 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
-  /* add queues, ... */
+
+  // STEPIEN: Need to add mail queues manually
+  // STEPIEN: Initialise them in the modules to keep structures local
+  InitLCDTaskMailQueue();
+  // InitTPTaskMailQueue();
+
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
@@ -147,19 +157,19 @@ void MX_FREERTOS_Init(void) {
   ControlTaskHandle = osThreadCreate(osThread(ControlTask), NULL);
 
   /* definition and creation of CameraTask */
-  osThreadDef(CameraTask, StartCameraTask, osPriorityNormal, 0, 1024);
+  osThreadDef(CameraTask, StartCameraTask, osPriorityHigh, 0, 1024);
   CameraTaskHandle = osThreadCreate(osThread(CameraTask), NULL);
 
   /* definition and creation of LCDTask */
-  osThreadDef(LCDTask, StartLCDTask, osPriorityNormal, 0, 1024);
+  osThreadDef(LCDTask, StartLCDTask, osPriorityAboveNormal, 0, 1024);
   LCDTaskHandle = osThreadCreate(osThread(LCDTask), NULL);
 
   /* definition and creation of SDTask */
-  osThreadDef(SDTask, StartSDTask, osPriorityNormal, 0, 1024);
+  osThreadDef(SDTask, StartSDTask, osPriorityHigh, 0, 1024);
   SDTaskHandle = osThreadCreate(osThread(SDTask), NULL);
 
   /* definition and creation of TimeTask */
-  osThreadDef(TimeTask, StartTimeTask, osPriorityNormal, 0, 1024);
+  osThreadDef(TimeTask, StartTimeTask, osPriorityAboveNormal, 0, 1024);
   TimeTaskHandle = osThreadCreate(osThread(TimeTask), NULL);
 
   /* definition and creation of TPTask */

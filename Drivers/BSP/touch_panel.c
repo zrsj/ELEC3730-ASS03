@@ -17,9 +17,13 @@
 #include "openx07v_c_lcd.h"
 #include "spi.h"
 
+// STEPOEJN: So we can print some messages to the console
+#include "stdio.h"
+
 
 /* Private variables ---------------------------------------------------------*/
-Matrix matrix ;
+
+Matrix matrix;
 Coordinate  display ;
 
 
@@ -435,8 +439,12 @@ void TouchPanel_Calibrate(void)
   uint8_t i;
   Coordinate * Ptr;
 
+  if (1==2) // Callibrate or use default
+  {
+  printf("INFO: Callibrate touch panel...\n");
   for(i=0;i<3;i++)
   {
+    printf("INFO: -> Point %d.\n", i+1);
     BSP_LCD_SetFont(&Font12);
     BSP_LCD_Clear(LCD_COLOR_WHITE);
     BSP_LCD_SetTextColor(LCD_COLOR_BLUE); 
@@ -457,7 +465,26 @@ void TouchPanel_Calibrate(void)
     ScreenSample[i].x= Ptr->x; ScreenSample[i].y= Ptr->y;
   }
   setCalibrationMatrix( &DisplaySample[0],&ScreenSample[0],&matrix );
+
   BSP_LCD_Clear(LCD_COLOR_BLACK);
+
+  // STEPIEN: Print the calibration information so that it can be set manually
+  printf("INFO: Calibration information:\n");
+  for (i=0;i<3;i++)
+  {
+    printf("ScreenSample[%d] = (Coordinate){.x=%d, .y=%d};\n",i,ScreenSample[i].x, ScreenSample[i].y);
+  }
+  }
+  else
+  {
+    // STEPIEN: Initialsed the calibration to save doing each time
+
+    printf("WARNING: Default touch panel calibration used.\n");
+    ScreenSample[0] = (Coordinate){.x=183, .y=1569};
+    ScreenSample[1] = (Coordinate){.x=1324, .y=1604};
+    ScreenSample[2] = (Coordinate){.x=911, .y=333};
+    setCalibrationMatrix( &DisplaySample[0],&ScreenSample[0],&matrix );
+  }
 } 
 
 /*********************************************************************************************************

@@ -26,11 +26,13 @@ uint8_t	BSP_PlatformIsDetected(void) {
     }
     /* USER CODE BEGIN 1 */
     /* user code can be inserted here */
+    /*
     printf("DEBUG: BSP_PlatformIsDetected() returns ");
     if (status == SD_PRESENT)
       printf("SD_PRESENT\n");
     else
     	printf("SD_NOT_PRESENT\n");
+    */
     /* USER CODE END 1 */ 
     return status;
 }  

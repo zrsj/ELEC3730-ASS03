@@ -1,7 +1,7 @@
 /*
- *        $Id: Ass-03-CameraTask.c 2139 2020-05-28 22:20:37Z Peter $
- *  $Revision: 2139 $
- *      $Date: 2020-05-29 08:20:37 +1000 (Fri, 29 May 2020) $
+ *        $Id: Ass-03-CameraTask.c 2168 2020-06-14 21:52:43Z Peter $
+ *  $Revision: 2168 $
+ *      $Date: 2020-06-15 07:52:43 +1000 (Mon, 15 Jun 2020) $
  *    $Author: Peter $
  */
 
@@ -24,15 +24,8 @@ StartCameraTask (void const * argument)
 {
   printf ("INFO: Hello from %s!\n", pcTaskGetName (osThreadGetId ()));
 
-  // Initialise the LCD here for now for the example
-  BSP_LCD_Init ();
-  BSP_LCD_Clear (LCD_COLOR_WHITE);
-
-  // Set LCD cursor location
-  ili9325_SetCursor (0, 0);
-
-  // Prepare to write GRAM (0x22)
-  LCD_IO_WriteReg (LCD_REG_34);
+  // while (1)
+    osDelay(5000);
 
   // Infinite loop
   while (1)
@@ -59,21 +52,39 @@ StartCameraTask (void const * argument)
       LineCounter++;
       if ((LineCounter >= YSIZE) && FrameXferCplt)
       {
-        // Set LCD direction
-        ili9325_SetCursor (0, 0);
-        // Prepare to write GRAM (0x22)
-        LCD_IO_WriteReg (LCD_REG_34);
         FrameCounter++;
         FrameXferCplt = 0;
         LineCounter = 0;
       }
 
-      // Write line to LCD screen (should do using DMA)
-      LCD_IO_WriteMultipleData ((uint8_t *) camera_buffer, BUFFER_LEN * 2);
+      if (LineCounter < XSIZE/2)
+      {
+        // Get control of LCD screen and skip line if we can't
+        if (osMutexWait (LCDMutexHandle, 0) == osOK)
+        {
+        // Set the window for the camera image and change update direction
+        ili9325_SetDisplayWindow(XSIZE-YSIZE/2-1, 1, YSIZE/2, XSIZE/2);
+        ili9325_WriteReg(LCD_REG_3, 0x1000);
+
+        // Set start of line and get ready to write to LCD GRAM
+        ili9325_SetCursor (XSIZE-YSIZE/2-1+LineCounter, XSIZE/2);
+        LCD_IO_WriteReg (LCD_REG_34);
+
+        // Write line to LCD screen (only half) (should do using DMA)
+        LCD_IO_WriteMultipleData ((uint8_t *) camera_buffer, XSIZE/2*2);
+
+        // Set the window for full size again and restore update direction
+        ili9325_SetDisplayWindow(0, 0, XSIZE, YSIZE);
+        ili9325_WriteReg(LCD_REG_3, 0x1028);
+
+        // Give back control
+        osMutexRelease (LCDMutexHandle);
+        }
+      }
     }
 
     // Stop DCMI interface
-    HAL_DCMI_Stop (&hdcmi);
+    // HAL_DCMI_Stop (&hdcmi);
 
     // Give back control
     osMutexRelease (SDIODCMIMutexHandle);
