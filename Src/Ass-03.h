@@ -109,6 +109,6 @@ struct strButton{
   uint16_t y;
   uint16_t width;
   uint16_t height;
+  uint8_t name[];
 };
 
-struct strButton arstrButtons[ENUM_VALUES];

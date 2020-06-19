@@ -157,7 +157,7 @@ void fnvdLCDInit(void){
   BSP_LCD_DisplayOn();
   //  
 }
-
+/*
 void fnvdDrawButtons(void){
   // LCD_IO_WriteReg(LCD_REG_34); 
   BSP_LCD_SetTextColor(LCD_COLOR_RED);
@@ -191,4 +191,6 @@ void fnvdEnterValuesButton(uint16_t x, uint16_t y, uint16_t width, uint16_t heig
       arstrButtons[type].width = width;
       arstrButtons[type].height = height;
 }
+*/
+
 
