@@ -11,7 +11,7 @@ void StartControlTask(void const * argument)
 {
   printf("INFO: Hello from %s!\n", pcTaskGetName(osThreadGetId()));
 
-  DrawBoxSend(100, 210, 210, 20); // Test during Week 12 lecture
+  // DrawBoxSend(100, 210, 210, 20); // Test during Week 12 lecture
 
   /*
   AddButtonSend( 5,  6,   80, 40, "One");

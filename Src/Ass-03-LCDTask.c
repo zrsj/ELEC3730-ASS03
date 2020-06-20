@@ -7,6 +7,8 @@
 
 #include "Ass-03.h"
 
+uint8_t intResetScreen = 0;
+
 /*
  * This task manages the LCD display. It has the following widgets:
  *
@@ -135,6 +137,7 @@ void StartLCDTask(void const * argument)
   // Loop waiting for messages for actions
   while (1)
   {
+
     evt = osMailGet(LCDTaskMailQueueHandle, osWaitForever);
     if (evt.status == osEventMail)
     {

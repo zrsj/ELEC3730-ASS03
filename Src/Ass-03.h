@@ -109,6 +109,7 @@ struct strButton{
   uint16_t y;
   uint16_t width;
   uint16_t height;
+  uint8_t pressed;
   uint8_t name[];
 };
 

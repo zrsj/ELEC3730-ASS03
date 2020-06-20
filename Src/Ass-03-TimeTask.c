@@ -32,7 +32,7 @@ void StartTimeTask(void const * argument)
     }else{
       sprintf(TheTimeString,"%4dd %2dh %2dm", strTime.inDay, strTime.inHours, strTime.inMinutes);
     }
-    TextBoxSend(100, 185, 210, 20, TheTimeString);
+    TextBoxSend(100, 210, 210, 20, TheTimeString);
     fnvdIncreaseTime();
 	  osDelay(1000);
   }

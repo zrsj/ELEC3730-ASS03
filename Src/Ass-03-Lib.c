@@ -157,6 +157,8 @@ void fnvdLCDInit(void){
   BSP_LCD_DisplayOn();
   //  
 }
+
+
 /*
 void fnvdDrawButtons(void){
   // LCD_IO_WriteReg(LCD_REG_34); 
